@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pokemon-card {
+  width: fit-content;
+  font-weight: 200;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background-color: rgb(204, 249, 168);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  row-gap: auto;
+  flex-direction: column;
+}
+
+.image {
+  width: 250px;
+  height: 250px;
+}

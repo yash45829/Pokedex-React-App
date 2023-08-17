@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 44px;
+  font-family: "Poppins", sans-serif;
+}
+.head {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2vh;
+  flex-wrap: wrap;
+}

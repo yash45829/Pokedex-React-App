@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  width: 45%;
+  height: 42px;
+  font-size: 18px;
+  padding-left: 2px;
+}
+
+button {
+  width: 100px;
+  height: 42px;
+  font-size: 18px;
+  border: none;
+}
+button:hover {
+  cursor: pointer;
+  background-color: rgb(190, 186, 186);
+}

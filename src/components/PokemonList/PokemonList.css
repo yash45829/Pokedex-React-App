@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pokemon-list {
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  row-gap: 2vh;
+  flex-wrap: wrap;
+}
