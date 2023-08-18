@@ -1,4 +1,6 @@
+// import { Link } from "react-router-dom";
 import PokemonList from "../PokemonList/PokemonList";
+// import PokemonDetails from "../PokemonDetails/PokemonDetails"
 import Search from "../Search/Search";
 import "./Pokedex.css";
 

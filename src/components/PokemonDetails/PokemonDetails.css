@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pokemon-detail-page {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-weight: 200;
+  border-radius: 20px;
+  padding: 10px 20px;
+  row-gap: auto;
+  flex-direction: column;
+}
