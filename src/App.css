@@ -1,0 +1,23 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.head{
+   text-align: center; 
+}
+
+.main-title{
+    color: rgb(224, 60, 169);
+    text-shadow: 0px 0px 2px 0px purple;
+    font-family: 'Lucida Sans','Lucida Grande','Trebuchet MS', 'Lucida Sans Unicode', Arial, sans-serif;
+   margin: 10px 0px ;
+}
+h1:hover{
+    color: rgb(215, 75, 215)
+}
+h1 span{
+   
+    font-family:  'Lucida Sans','Lucida Grande','Trebuchet MS', 'Lucida Sans Unicode', Arial, sans-serif;
+}

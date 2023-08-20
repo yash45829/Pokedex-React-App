@@ -4,51 +4,73 @@ import Pokemon from "../Pokemon/Pokemon";
 import "./PokemonList.css";
 
 function PokemonList() {
-  const API_URL = `https://pokeapi.co/api/v2/pokemon`;
+  // state initialisation
+  let [pokemonStates, setPokemonStates] = useState({
+    pokemonList: [],
+    isLoading: false,
+    pokedexUrl: `https://pokeapi.co/api/v2/pokemon`,
+    prevPokedexUrl: "",
+    nextPokedexUrl: "",
+  });
 
-  const [pokemonList, setPokemonList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [pokedexUrl, setPokedexUrl] = useState(API_URL);
-  const [prevPokedexUrl, setPrevPokedexUrl] = useState("");
-  const [nextPokedexUrl, setNextPokedexUrl] = useState("");
+  async function PokemonFetchedList(url) {
+    setPokemonStates((prevState) => ({
+      ...prevState,
+      isLoading: true,
+    }));
 
-  async function PokemonFetchedList() {
-    setIsLoading(true);
-    const response = await axios.get(pokedexUrl);
-    const list = response.data;
-    setNextPokedexUrl(response.data.next);
-    setPrevPokedexUrl(response.data.previous);
-    console.log(list);
-    const result = response.data.results;
-    console.log(result);
-    const listOfPokemonData = await result.map((pokemon) =>
-      axios.get(pokemon.url)
-    );
-    const pokemonDataFetched = await axios.all(listOfPokemonData);
-    console.log(pokemonDataFetched);
-    const pokemonPakage = pokemonDataFetched.map((pokemon) => {
-      return {
-        name: pokemon.data.name,
-        image: pokemon.data.sprites.front_shiny,
-        types: pokemon.data.types,
-        id: pokemon.data.id,
-      };
-    });
-    console.log(pokemonPakage);
-    setPokemonList(pokemonPakage);
-    setIsLoading(false);
+    try {
+      // console.log(url);
+      const response = await axios.get(url);
+      const list = await response.data;
+
+      setPokemonStates((prevState) => ({
+        ...prevState,
+        nextPokedexUrl: list.next,
+        prevPokedexUrl: list.previous,
+      }));
+
+      const result = response.data.results;
+      // console.log(result);
+      const listOfPokemonData = await result.map(
+        async (pokemon) => await axios.get(pokemon.url)
+      );
+      const pokemonDataFetched = await axios.all(listOfPokemonData);
+      // console.log(pokemonDataFetched);
+      const pokemonPakage = pokemonDataFetched.map((pokemon) => {
+        return {
+          name: pokemon.data.name,
+          image: pokemon.data.sprites.front_shiny,
+          types: pokemon.data.types,
+          id: pokemon.data.id,
+        };
+      });
+
+      setPokemonStates((pokemonStates) => ({
+        ...pokemonStates,
+        pokemonList: pokemonPakage,
+        isLoading: false,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }
 
   useEffect(() => {
-    PokemonFetchedList();
-  }, [pokedexUrl]);
+    PokemonFetchedList(pokemonStates.pokedexUrl);
+    console.log(pokemonStates);
+  }, [pokemonStates.pokedexUrl]);
+
+  // useEffect(() => {
+  //   console.log("Updated Pokemon States:", pokemonStates);
+  // }, [pokemonStates]);
 
   return (
     <>
       <div className="pokemon-list">
-        {isLoading
+        {pokemonStates.isLoading
           ? "Loading..."
-          : pokemonList.map((pokemon) => (
+          : pokemonStates.pokemonList.map((pokemon) => (
               <Pokemon
                 name={pokemon.name}
                 image={pokemon.image}
@@ -59,15 +81,18 @@ function PokemonList() {
       </div>
 
       {/* buttons logic   */}
-      {isLoading ? (
+      {pokemonStates.isLoading ? (
         ""
       ) : (
         <div className="buttons">
           <button
             className="btn"
-            disabled={prevPokedexUrl == null}
+            disabled={pokemonStates.prevPokedexUrl == null}
             onClick={() => {
-              setPokedexUrl(prevPokedexUrl);
+              setPokemonStates((prevState) => ({
+                ...prevState,
+                pokedexUrl: pokemonStates.prevPokedexUrl,
+              }));
             }}
           >
             Previous
@@ -75,7 +100,10 @@ function PokemonList() {
           <button
             className="btn"
             onClick={() => {
-              setPokedexUrl(nextPokedexUrl);
+              setPokemonStates((prevState) => ({
+                ...prevState,
+                pokedexUrl: pokemonStates.nextPokedexUrl,
+              }));
             }}
           >
             Next

@@ -25,7 +25,7 @@ function PokemonDetails() {
     };
     setPokemon(p);
   }
- 
+
   console.log(pokemon);
 
   useEffect(() => {
@@ -36,18 +36,20 @@ function PokemonDetails() {
     <>
       {pokemon !== null && (
         <div className="pokemon-detail-page">
-          <h1>{pokemon.name}</h1>
+          <h1 className="pokemon-name">{pokemon.name.toUpperCase()}</h1>
           <img
             className="image"
             src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg`}
             alt="image"
             srcSet={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.id}.svg`}
           />
-          <p>weight : {pokemon.weight}</p>
-          <p>height : {pokemon.height}</p>
-          {pokemon.types.map((t) => (
-            <div> {t.type.name} </div>
-          ))}
+          <p>weight - {pokemon.weight}</p>
+          <p>height - {pokemon.height}</p>
+          <div className="type">
+            {pokemon.types.map((t) => (
+              <div className="type-name" key={t.slot}> {t.type.name} </div>
+            ))}
+          </div>
         </div>
       )}
     </>
