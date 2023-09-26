@@ -1,15 +1,23 @@
-// import { Link } from "react-router-dom";
-import PokemonList from "../PokemonList/PokemonList";
-// import PokemonDetails from "../PokemonDetails/PokemonDetails"
-import Search from "../Search/Search";
+import { useState } from "react";
+// css 
 import "./Pokedex.css";
+// components 
+import PokemonList from "../PokemonList/PokemonList";
+import Search from "../Search/Search";
+import PokemonDetails from "../PokemonDetails/PokemonDetails";
 
 function Pokedex() {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className="head">
-      <Search />
+      <Search updateSearchTerm={setSearchTerm} />
       <div>
-        <PokemonList />
+        {!searchTerm ? (
+          <PokemonList />
+        ) : (
+          <PokemonDetails key={searchTerm} name={searchTerm} />
+        )}
       </div>
     </div>
   );

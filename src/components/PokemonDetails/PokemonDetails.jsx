@@ -2,39 +2,45 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PokemonDetails.css";
-function PokemonDetails() {
+function PokemonDetails({ name }) {
   const { id } = useParams();
 
   const [pokemon, setPokemon] = useState(null);
+  try {
+    async function download() {
+      let response;
+      if (name) {
+        const urlByName = `https://pokeapi.co/api/v2/pokemon/${name}`;
+        response = await axios.get(urlByName);
+      } else {
+        console.log(id);
+        const urlById = `https://pokeapi.co/api/v2/pokemon/${id}`;
+        response = await axios.get(urlById);
+      }
 
-  async function download() {
-    console.log(id);
-    const urlById = `https://pokeapi.co/api/v2/pokemon/${id}`;
-    const response = await axios.get(urlById);
+      const pokemonData = await response.data;
+      console.log(pokemonData);
 
-    const pokemonData = await response.data;
-    console.log(pokemonData);
-
-    const p = {
-      name: pokemonData.name,
-      image: pokemonData.sprites.front_shiny,
-      types: pokemonData.types,
-      id: pokemonData.id,
-      weight: pokemonData.weight,
-      height: pokemonData.height,
-    };
-    setPokemon(p);
+      const p = {
+        name: pokemonData.name,
+        image: pokemonData.sprites.front_shiny,
+        types: pokemonData.types,
+        id: pokemonData.id,
+        weight: pokemonData.weight,
+        height: pokemonData.height,
+      };
+      setPokemon(p);
+    }
+    useEffect(() => {
+      download();
+    }, []);
+  } catch (error) {
+    console.log(error);
   }
-
-  console.log(pokemon);
-
-  useEffect(() => {
-    download();
-  }, []);
 
   return (
     <>
-      {pokemon !== null && (
+      {pokemon !== null ? (
         <div className="pokemon-detail-page">
           <h1 className="pokemon-name">{pokemon.name.toUpperCase()}</h1>
           <img
@@ -47,10 +53,15 @@ function PokemonDetails() {
           <p>height - {pokemon.height}</p>
           <div className="type">
             {pokemon.types.map((t) => (
-              <div className="type-name" key={t.slot}> {t.type.name} </div>
+              <div className="type-name" key={t.slot}>
+                {" "}
+                {t.type.name}{" "}
+              </div>
             ))}
           </div>
         </div>
+      ) : (
+        ""
       )}
     </>
   );
