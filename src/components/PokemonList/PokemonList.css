@@ -13,12 +13,11 @@
   flex-wrap: wrap;
 }
 
-.buttons{
+.buttons {
   display: block;
-  /* border: 1px solid black; */
   text-align: center;
   margin: 20px;
 }
-.btn{
-margin: 0px 2px;
+.btn {
+  margin: 0px 2px;
 }

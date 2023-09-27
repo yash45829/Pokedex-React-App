@@ -15,9 +15,8 @@
   background-color: rgb(204, 249, 168);
   row-gap: auto;
   flex-direction: column;
-
 }
-.name{
+.name {
   /* border: 1px solid black; */
   background-color: rgb(182, 238, 137);
   text-align: center;

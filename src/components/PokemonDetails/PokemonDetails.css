@@ -3,10 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-.pokemon-name{
+.pokemon-name {
   font-size: 28px;
 }
-
 
 .pokemon-detail-page {
   display: flex;
@@ -19,20 +18,19 @@
   padding: 10px 20px;
   row-gap: auto;
   flex-direction: column;
-  font-family: 'Arial Narrow Bold', sans-serif;
+  font-family: "Arial Narrow Bold", sans-serif;
   font-size: 24px;
-
 }
-.type{
+.type {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 4px ;
+  padding: 4px;
 }
-.type-name{
+.type-name {
   margin: 2px 8px;
   padding: 4px 8px;
-  font-family: 'Arial Narrow Bold', sans-serif;
+  font-family: "Arial Narrow Bold", sans-serif;
   background-color: rgb(233, 113, 233);
   font-size: 24px;
   border-radius: 8px;
